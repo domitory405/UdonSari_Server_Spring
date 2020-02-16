@@ -15,21 +15,27 @@ public class MemberDaoImpl implements MemberDao {
     private SqlSession sqlSession;
 
     @Override
-    public int register(HashMap<String, Object> map) {
+    public int checkId(HashMap<String, Object> map) {
         /*
-        * insert 결과
-        * 0 : fail
-        * 1 : success
-        * */
-        int result = 0;
+         * return
+         * 0 : fail
+         * 1 : success
+         * */
+        int count  = sqlSession.selectOne("kr.domi.udonsari.MemberMapper.countMember", map.get("uid").toString());
 
+        if(count == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public void register(HashMap<String, Object> map) {
         try {
-            System.out.println(map);
-            result = sqlSession.insert("kr.domi.udonsari.MemberMapper.insertMember", map);
+            sqlSession.insert("kr.domi.udonsari.MemberMapper.insertMember", map);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return result;
     }
 }

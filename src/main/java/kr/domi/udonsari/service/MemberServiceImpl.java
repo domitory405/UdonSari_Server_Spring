@@ -1,7 +1,6 @@
 package kr.domi.udonsari.service;
 
 import kr.domi.udonsari.dao.MemberDao;
-import kr.domi.udonsari.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void signUp(HashMap<String, Object> map) {
-        int result = memberDao.register(map);
+        if(memberDao.checkId(map) == 1) {
+            memberDao.register(map);
+        } else {
+            System.out.println("중복된 ID 입니다.");
+        }
     }
 }

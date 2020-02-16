@@ -23,7 +23,6 @@ public class AuthController {
 
     @RequestMapping(value="/signup", method = RequestMethod.POST)
     public String signup(@RequestBody HashMap<String, Object> map) {
-        System.out.println("sign up 실행 : "+ map);
         memberService.signUp(map);
 
         return "Signin Success";

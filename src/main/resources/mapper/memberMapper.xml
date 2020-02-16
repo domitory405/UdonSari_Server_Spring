@@ -9,4 +9,9 @@
         insert into user(uid, pwd, name, address, job, favorite, comment, salt, gender, image, gps)
         values( #{uid}, #{pwd}, #{name}, #{address}, #{job}, #{favorite}, #{comment}, #{salt}, #{gender}, #{image}, #{gps})
     </insert>
+
+    <!-- 회원 가입시 id 중복 체크-->
+    <select id="countMember" parameterType="String" resultType="memberVO">
+        select count(*) from user where uid = #{uid}
+    </select>
 </mapper>

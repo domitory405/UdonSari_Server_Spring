@@ -9,4 +9,9 @@
         insert into user(uid, pwd, name, address, job, favorite, comment, salt, gender, image, gps)
         values( #{uid}, #{pwd}, #{name}, #{address}, #{job}, #{favorite}, #{comment}, #{salt}, #{gender}, #{image}, #{gps})
     </insert>
+
+    <!-- 회원 가입시 id 중복 체크 및 유저 정보 가져올 때 사용-->
+    <select id="selectMember" parameterType="String" resultType="memberVO">
+        select * from user where uid = #{uid}
+    </select>
 </mapper>
