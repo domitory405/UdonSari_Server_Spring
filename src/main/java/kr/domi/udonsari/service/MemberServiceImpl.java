@@ -15,7 +15,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void signUp(HashMap<String, Object> map) {
-        if(memberDao.checkId(map) == 1) {
+        if(memberDao.checkId(map) == 0) {
             memberDao.register(map);
         } else {
             System.out.println("중복된 ID 입니다.");
