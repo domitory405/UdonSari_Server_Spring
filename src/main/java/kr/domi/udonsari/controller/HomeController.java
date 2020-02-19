@@ -1,12 +1,12 @@
 package kr.domi.udonsari.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class HomeController {
 
-    @RequestMapping(value="/")
+    @GetMapping(value="/")
     public String home() {
         System.out.println("Home Controller 실행");
         return "index";
