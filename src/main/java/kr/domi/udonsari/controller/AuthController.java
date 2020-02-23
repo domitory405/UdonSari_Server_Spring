@@ -1,5 +1,6 @@
 package kr.domi.udonsari.controller;
 
+import kr.domi.udonsari.model.MemberSignUpReq;
 import kr.domi.udonsari.service.MemberService;
 import kr.domi.udonsari.vo.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,9 @@ public class AuthController {
     }
 
     @PostMapping(value="/signup")
-    public String signup(@RequestBody HashMap<String, Object> map) {
-        memberService.signUp(map);
+    public String signup(@RequestBody MemberSignUpReq memberSignUpReq) {
+        System.out.println(memberSignUpReq.getUid());
+//        memberService.signUp(map);
 
         return "Signin Success";
     }

@@ -1,10 +1,9 @@
-package kr.domi.udonsari.vo;
+package kr.domi.udonsari.model;
 
-public class MemberVO {
-    private int user_idx;
+public class MemberSignUpReq {
+    //회원가입 시 Req 데이터
     private String uid;
     private String pwd;
-    private String salt;
     private String name;
     private String address;
     private String job;
@@ -13,22 +12,6 @@ public class MemberVO {
     private int gender;
     private String image;
     private String gps;
-
-    public void setUser_idx(int user_idx) {
-        this.user_idx = user_idx;
-    }
-
-    public int getUser_idx() {
-        return user_idx;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
 
     public String getUid() {
         return uid;
