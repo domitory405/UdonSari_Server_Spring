@@ -16,6 +16,7 @@ public class MemberSignUpReq {
     private String job;
     private String favorite;
     private String comment;
+    private String salt;
     private int gender;
     private String image;
     private String gps;

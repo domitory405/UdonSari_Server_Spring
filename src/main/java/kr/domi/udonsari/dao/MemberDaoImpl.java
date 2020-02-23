@@ -1,6 +1,5 @@
 package kr.domi.udonsari.dao;
 
-import kr.domi.udonsari.dto.MemberDto;
 import kr.domi.udonsari.model.MemberSignUpReq;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

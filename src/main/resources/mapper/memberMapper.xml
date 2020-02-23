@@ -6,8 +6,8 @@
 <mapper namespace="kr.domi.udonsari.MemberMapper">
     <!-- 회원 가입 -->
     <insert id="insertMember" parameterType="memberSignUpReq">
-        insert into USER(uid, pwd, name, address, job, favorite, comment, gender, image, gps)
-        values( #{uid}, #{pwd}, #{name}, #{address}, #{job}, #{favorite}, #{comment}, #{gender}, #{image}, #{gps})
+        insert into USER(uid, pwd, name, address, job, favorite, comment, salt, gender, image, gps)
+        values( #{uid}, #{pwd}, #{name}, #{address}, #{job}, #{favorite}, #{comment}, #{salt}, #{gender}, #{image}, #{gps})
     </insert>
 
     <!-- 회원 가입시 id 중복 체크-->

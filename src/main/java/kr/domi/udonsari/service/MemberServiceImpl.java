@@ -7,7 +7,7 @@ import kr.domi.udonsari.utils.ResponseMessage;
 import kr.domi.udonsari.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import static kr.domi.udonsari.utils.SHA256PasswordEncoder.*;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -19,6 +19,11 @@ public class MemberServiceImpl implements MemberService {
     public DefaultRes signUp(MemberSignUpReq memberSignUpReq) {
         //중복된 id 존재 여부
         if(memberDao.checkId(memberSignUpReq.getUid()) == 0) {
+            /* salt 생성 -> 암호화 -> memberSignUpReq에 set.. */
+            final String salt =  generateSalt();
+            memberSignUpReq.setSalt(salt);
+            memberSignUpReq.setPwd(encrypt(memberSignUpReq.getPwd().toString(), salt.getBytes()));
+
             if(memberDao.register(memberSignUpReq)) {
                 //res 회원가입 성공 날리기
                 return DefaultRes.res(StatusCode.OK, ResponseMessage.CREATED_USER);
