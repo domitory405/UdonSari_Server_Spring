@@ -1,10 +1,7 @@
 package kr.domi.udonsari.dao;
 
-import kr.domi.udonsari.model.DefaultRes;
+import kr.domi.udonsari.dto.MemberDto;
 import kr.domi.udonsari.model.MemberSignUpReq;
-import kr.domi.udonsari.utils.ResponseMessage;
-import kr.domi.udonsari.utils.StatusCode;
-import kr.domi.udonsari.vo.MemberVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,14 +19,14 @@ public class MemberDaoImpl implements MemberDao {
     * @return Member 객체
     * */
     @Override
-    public MemberVO checkId(String uid) {
-        MemberVO memberVO = sqlSession.selectOne("kr.domi.udonsari.MemberMapper.countMember", uid);
-        return memberVO;
+    public int checkId(String uid) {
+        int count = sqlSession.selectOne("kr.domi.udonsari.MemberMapper.countMember", uid);
+        return count;
     }
 
     /*
     *  회원 가입
-    *
+    *S
     * @param
     * @return boolean - True 성공
     * */

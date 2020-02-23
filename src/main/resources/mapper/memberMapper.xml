@@ -11,7 +11,7 @@
     </insert>
 
     <!-- 회원 가입시 id 중복 체크-->
-    <select id="countMember" parameterType="String" resultType="memberVO">
-        select * from udonSari.USER where uid = #{uid}
+    <select id="countMember" parameterType="String" resultType="int">
+        select count(*) from udonSari.USER where uid = #{uid}
     </select>
 </mapper>

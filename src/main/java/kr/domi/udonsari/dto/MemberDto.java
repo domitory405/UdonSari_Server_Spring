@@ -1,4 +1,4 @@
-package kr.domi.udonsari.model;
+package kr.domi.udonsari.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberSignUpReq {
-    //회원가입 시 Req 데이터
+public class MemberDto {
+    private int user_idx;
     private String uid;
     private String pwd;
+    private String salt;
     private String name;
     private String address;
     private String job;

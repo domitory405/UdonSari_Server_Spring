@@ -1,5 +1,7 @@
 package kr.domi.udonsari.model;
 
+import kr.domi.udonsari.utils.ResponseMessage;
+import kr.domi.udonsari.utils.StatusCode;
 import lombok.*;
 
 @Getter
@@ -12,6 +14,8 @@ public class DefaultRes<T> {
     private String message;
     private int len;
     private T data;
+
+    public static final DefaultRes FAIL_DEFAULT_RES = new DefaultRes(StatusCode.INTERNAL_SERVER_ERROR, ResponseMessage.INTERNAL_SERVER_ERROR);
 
     public DefaultRes(int status, String message) {
         this.status = status;
