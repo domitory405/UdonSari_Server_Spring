@@ -1,9 +1,12 @@
 package kr.domi.udonsari.service;
 
 import kr.domi.udonsari.dao.MemberDao;
+import kr.domi.udonsari.dto.MemberDto;
 import kr.domi.udonsari.model.DefaultRes;
+import kr.domi.udonsari.model.MemberSignInReq;
 import kr.domi.udonsari.model.MemberSignUpReq;
 import kr.domi.udonsari.utils.ResponseMessage;
+import kr.domi.udonsari.utils.SHA256PasswordEncoder;
 import kr.domi.udonsari.utils.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +39,22 @@ public class MemberServiceImpl implements MemberService {
             System.out.println("중복된 ID 입니다.");
             return DefaultRes.res(StatusCode.FORBIDDEN, ResponseMessage.ALREADY_USER);
         }
+    }
+
+    @Override
+    public DefaultRes signIn (MemberSignInReq memberSignInReq) {
+        final String salt = memberDao.getSalt(memberSignInReq.getUid());
+        final String hashPwd = SHA256PasswordEncoder.encrypt(memberSignInReq.getPwd(), salt.getBytes());
+        memberSignInReq.setHashPwd(hashPwd);
+
+        final MemberDto member = memberDao.signIn(memberSignInReq);
+
+        if(member != null) {
+            //jwt 발급
+        } else{
+
+        }
+
+        return null;
     }
 }

@@ -14,4 +14,14 @@
     <select id="countMember" parameterType="String" resultType="int">
         select count(*) from udonSari.USER where uid = #{uid}
     </select>
+
+    <!-- Salt 값 반환 -->
+    <select id="selectMemberSalt" parameterType="String" resultType="String">
+        select salt from udonSari.USER WHERE uid = #{uid}
+    </select>
+
+    <!-- Login 시 password와 hash password 비교-->
+    <select id="selectIdAndPwd" parameterType="memberSignInReq" resultType="memberDto">
+        select * from from udonSari.USER WHERE uid= #{uid} and pwd= #{hashPwd}
+    </select>
 </mapper>
