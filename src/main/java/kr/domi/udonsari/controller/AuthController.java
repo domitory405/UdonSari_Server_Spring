@@ -48,6 +48,7 @@ public class AuthController {
         try {
             String salt="";
             String hashPwd = SHA256PasswordEncoder.encrypt(memberSignInReq.getPwd(), salt.getBytes());
+            memberService.signIn(memberSignInReq);
         } catch (Exception e) {
             e.printStackTrace();
         }

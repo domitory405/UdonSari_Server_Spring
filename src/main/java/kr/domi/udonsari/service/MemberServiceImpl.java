@@ -51,8 +51,9 @@ public class MemberServiceImpl implements MemberService {
 
         if(member != null) {
             //jwt 발급
+            System.out.println("일단은 성공");
         } else{
-
+            System.out.println("Fail Login");
         }
 
         return null;

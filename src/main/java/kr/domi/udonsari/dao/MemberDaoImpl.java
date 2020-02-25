@@ -47,7 +47,7 @@ public class MemberDaoImpl implements MemberDao {
     * */
     @Override
     public String getSalt(String uid) {
-        String salt = sqlSession.selectOne("kr.domi.udonsari.MemberMapper.seletMemberSalt", uid);
+        String salt = sqlSession.selectOne("kr.domi.udonsari.MemberMapper.selectMemberSalt", uid);
 
         return salt;
     }

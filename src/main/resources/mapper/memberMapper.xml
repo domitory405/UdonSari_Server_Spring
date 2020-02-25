@@ -22,6 +22,6 @@
 
     <!-- Login 시 password와 hash password 비교-->
     <select id="selectIdAndPwd" parameterType="memberSignInReq" resultType="memberDto">
-        select * from from udonSari.USER WHERE uid= #{uid} and pwd= #{hashPwd}
+        select * from udonSari.USER WHERE uid= #{uid} AND pwd= #{hashPwd}
     </select>
 </mapper>
