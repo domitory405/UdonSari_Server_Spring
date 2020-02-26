@@ -18,6 +18,9 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDao memberDao;
 
+    @Autowired
+    private JwtService jwtService;
+
     @Override
     public DefaultRes signUp(MemberSignUpReq memberSignUpReq) {
         //중복된 id 존재 여부
@@ -52,6 +55,7 @@ public class MemberServiceImpl implements MemberService {
         if(member != null) {
             //jwt 발급
             System.out.println("일단은 성공");
+            
         } else{
             System.out.println("Fail Login");
         }
