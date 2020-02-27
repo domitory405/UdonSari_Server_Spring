@@ -7,7 +7,9 @@ import lombok.Setter;
 @Setter
 public class MemberSignInReq {
     //로그인 요청 객체
+    private int userIdx;
     private String uid;
     private String pwd;
     private String hashPwd;
+    private String salt;
 }

@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberDto {
-    private int user_idx;
+    private int userIdx;
     private String uid;
     private String pwd;
     private String salt;

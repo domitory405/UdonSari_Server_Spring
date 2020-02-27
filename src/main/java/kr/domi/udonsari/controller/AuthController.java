@@ -3,11 +3,11 @@ package kr.domi.udonsari.controller;
 import kr.domi.udonsari.model.MemberSignInReq;
 import kr.domi.udonsari.model.MemberSignUpReq;
 import kr.domi.udonsari.service.MemberService;
-import kr.domi.udonsari.utils.SHA256PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import static kr.domi.udonsari.model.DefaultRes.FAIL_DEFAULT_RES;
 
@@ -43,14 +43,13 @@ public class AuthController {
     * @Req MemberLoginReq
     * @return
     * */
-    @PostMapping(value="signin")
-    public void signin(@RequestBody final MemberSignInReq memberSignInReq) {
+    @PostMapping(value="/signin")
+    public ResponseEntity signin(@RequestBody final MemberSignInReq memberSignInReq) {
         try {
-            String salt="";
-            String hashPwd = SHA256PasswordEncoder.encrypt(memberSignInReq.getPwd(), salt.getBytes());
-            memberService.signIn(memberSignInReq);
+            return new ResponseEntity<>(memberService.signIn(memberSignInReq), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

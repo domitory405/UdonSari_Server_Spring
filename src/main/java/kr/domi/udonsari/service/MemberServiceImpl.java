@@ -48,18 +48,22 @@ public class MemberServiceImpl implements MemberService {
     public DefaultRes signIn (MemberSignInReq memberSignInReq) {
         final String salt = memberDao.getSalt(memberSignInReq.getUid());
         final String hashPwd = SHA256PasswordEncoder.encrypt(memberSignInReq.getPwd(), salt.getBytes());
+
         memberSignInReq.setHashPwd(hashPwd);
+        memberSignInReq.setSalt(salt);
 
         final MemberDto member = memberDao.signIn(memberSignInReq);
 
         if(member != null) {
             //jwt 발급
             System.out.println("일단은 성공");
-            
+            System.out.println(member.toString());
+            JwtServiceImpl.TokenRes tokenDto = new JwtServiceImpl.TokenRes(jwtService.createToken(member), member.getUserIdx());
+            System.out.println("생성된 토큰 : " + tokenDto.toString());
+            return DefaultRes.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, tokenDto);
         } else{
             System.out.println("Fail Login");
+            return DefaultRes.res(StatusCode.BAD_REQ, ResponseMessage.LOGIN_FAIL);
         }
-
-        return null;
     }
 }

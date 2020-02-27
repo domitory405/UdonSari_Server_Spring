@@ -2,6 +2,7 @@ package kr.domi.udonsari.service;
 
 import io.jsonwebtoken.*;
 import kr.domi.udonsari.dto.MemberDto;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,9 @@ import java.util.Map;
 @Service
 public class JwtServiceImpl implements JwtService{
 
-    @Value("${jwt.secret}")
+    @Value("#{jwtConfig['jwt.secret']}")
     private String key;
+
     /*
     * token 생성
     * @param MemberDto
@@ -26,26 +28,28 @@ public class JwtServiceImpl implements JwtService{
     @Override
     public String createToken(MemberDto member) {
         Map<String, Object> map = new HashMap<>();
-        map.put("userIdx", member.getUser_idx());
+        map.put("userIdx", member.getUserIdx());
         map.put("uid", member.getUid());
 
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(member.getSalt());
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
         Key signInKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
-
+        
         try {
+            System.out.println("외않되");
             String token = Jwts.builder()
                     .setHeaderParam("typ", "JWT")
-                    .setHeaderParam("alg", "...")
+                    .setHeaderParam("alg", "HS256")
                     .setExpiration(getExpireDate())
                     .setClaims(map)
                     .signWith(SignatureAlgorithm.HS256, signInKey)
                     .compact();
+            System.out.println(token);
             return token;
         } catch (Exception e) {
+            System.out.println("혹시..");
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
     private Date getExpireDate() {
@@ -61,6 +65,7 @@ public class JwtServiceImpl implements JwtService{
     * @param token
     * @return idx
     * */
+    @Override
     public boolean checkToken(String token) {
         try {
             Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))
@@ -68,32 +73,23 @@ public class JwtServiceImpl implements JwtService{
             System.out.println("expireDate : " + claims.getExpiration());
             System.out.println("id, idx : " + claims.get("uid") + ", " + claims.get("userIdx"));
             return true;
-        } catch (ExpiredJwtException e) {
-            e.printStackTrace();
-            System.out.println("토큰 만료");
-            return false;
-        } catch (JwtException e) {
-            e.printStackTrace();
-            System.out.println("토큰 변조");
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
+//        catch (ExpiredJwtException e) {
+//            e.printStackTrace();
+//            System.out.println("토큰 만료");
+//            return false;
+//        } catch (JwtException e) {
+//            e.printStackTrace();
+//            System.out.println("토큰 변조");
+//            return false;
+//        }
     }
 
-    public static class Token {
-        private int userIdx = -1;
-
-        public Token(int userIdx) {
-            this.userIdx = userIdx;
-        }
-
-        public int getUserIdx() {
-            return userIdx;
-        }
-    }
-
+    @ToString
     public static class TokenRes {
         private String token;
         private int userIdx;
