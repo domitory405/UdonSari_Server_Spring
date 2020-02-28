@@ -5,6 +5,7 @@ import kr.domi.udonsari.dto.MemberDto;
 import kr.domi.udonsari.model.DefaultRes;
 import kr.domi.udonsari.model.MemberSignInReq;
 import kr.domi.udonsari.model.MemberSignUpReq;
+import kr.domi.udonsari.model.TokenRes;
 import kr.domi.udonsari.utils.ResponseMessage;
 import kr.domi.udonsari.utils.SHA256PasswordEncoder;
 import kr.domi.udonsari.utils.StatusCode;
@@ -55,10 +56,10 @@ public class MemberServiceImpl implements MemberService {
         final MemberDto member = memberDao.signIn(memberSignInReq);
 
         if(member != null) {
+            System.out.println("Success Login" + member.toString());
+
             //jwt 발급
-            System.out.println("일단은 성공");
-            System.out.println(member.toString());
-            JwtServiceImpl.TokenRes tokenDto = new JwtServiceImpl.TokenRes(jwtService.createToken(member), member.getUserIdx());
+            TokenRes tokenDto = new TokenRes(jwtService.createToken(member), member.getUserIdx());
             System.out.println("생성된 토큰 : " + tokenDto.toString());
             return DefaultRes.res(StatusCode.OK, ResponseMessage.LOGIN_SUCCESS, tokenDto);
         } else{

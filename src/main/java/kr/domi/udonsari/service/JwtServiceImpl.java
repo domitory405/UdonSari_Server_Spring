@@ -33,9 +33,8 @@ public class JwtServiceImpl implements JwtService{
 
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
         Key signInKey = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
-        
+
         try {
-            System.out.println("외않되");
             String token = Jwts.builder()
                     .setHeaderParam("typ", "JWT")
                     .setHeaderParam("alg", "HS256")
@@ -43,10 +42,8 @@ public class JwtServiceImpl implements JwtService{
                     .setClaims(map)
                     .signWith(SignatureAlgorithm.HS256, signInKey)
                     .compact();
-            System.out.println(token);
             return token;
         } catch (Exception e) {
-            System.out.println("혹시..");
             e.printStackTrace();
             return null;
         }
@@ -87,16 +84,5 @@ public class JwtServiceImpl implements JwtService{
 //            System.out.println("토큰 변조");
 //            return false;
 //        }
-    }
-
-    @ToString
-    public static class TokenRes {
-        private String token;
-        private int userIdx;
-
-        public TokenRes(String token, int userIdx) {
-            this.token = token;
-            this.userIdx = userIdx;
-        }
     }
 }
