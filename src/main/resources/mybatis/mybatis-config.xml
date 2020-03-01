@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias type="kr.domi.udonsari.vo.MemberVO" alias="memberVO"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.model.MemberSignUpReq" alias="memberSignUpReq"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.model.MemberSignInReq" alias="memberSignInReq"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.dto.MemberDto" alias="memberDto"></typeAlias>
     </typeAliases>
 </configuration>
