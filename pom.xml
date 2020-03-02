@@ -165,5 +165,13 @@
             <version>0.11.0</version>
         </dependency>
 
+        <!-- APACHE HTTP CLIENT -->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.10</version>
+        </dependency>
+
     </dependencies>
 </project>
