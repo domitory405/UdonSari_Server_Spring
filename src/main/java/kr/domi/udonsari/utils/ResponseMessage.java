@@ -18,7 +18,7 @@ public class ResponseMessage {
     /*
      * 모드 선택
      * */
-    public static final String MODE_UDON = "우동 모드";
-    public static final String MODE_SARI = "사리 모드";
+    public static final String MODE_UDON = "우동 모드가 선택되었습니다.";
+    public static final String MODE_SARI = "사리 모드가 선택되었습니다.";
     public static final String MODE_ERROR = "잘못된 모드 번호입니다.";
 }
