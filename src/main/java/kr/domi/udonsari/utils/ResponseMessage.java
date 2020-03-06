@@ -14,4 +14,10 @@ public class ResponseMessage {
     * */
     public static final String DB_ERROR = "데이터베이스 오류";
     public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
+
+    /*
+    * GPS 변경
+    * */
+    public static final String MATCH_GPS = "GPS가 유효합니다.";
+    public static final String CHANGE_GPS = "GPS 위치가 변경되었습니다.";
 }

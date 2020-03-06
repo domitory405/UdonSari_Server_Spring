@@ -10,19 +10,19 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 
-@Service
-public class UdonServiceImpl implements UdonService {
+    @Service
+    public class UdonServiceImpl implements UdonService {
 
-    @Autowired
-    RestTemplate restTemplate;
+        @Autowired
+        RestTemplate restTemplate;
 
-    @Value("#{restConfig['openapi.key']}")
-    private String apiKey;
+        @Value("#{restConfig['openapi.key']}")
+        private String apiKey;
 
-    private StringBuffer url;
-    private String code;
+        private StringBuffer url;
+        private String code;
 
-    @PostConstruct
+        @PostConstruct
     public void urlInit() {
         url = new StringBuffer("http://api.vworld.kr/req/data?service=data" +
                 "&request=GetFeature" +
@@ -33,7 +33,6 @@ public class UdonServiceImpl implements UdonService {
 
     @Override
     public String getRegCode(String gps) {
-        System.out.println("apiKey " + apiKey);
         //User 위치 정보 받아서 -> api 호출, 지역 코드
         url.append("http://localhost:7979");
         url.append("&geomFilter=" + gps);
@@ -42,10 +41,11 @@ public class UdonServiceImpl implements UdonService {
 
         System.out.println(url);
 
-        String obj = restTemplate.getForObject(url.toString(), String.class);
-        System.out.println(obj);
 
         try {
+            String obj = restTemplate.getForObject(url.toString(), String.class);
+            System.out.println(obj);
+
             JSONParser parser = new JSONParser();
             Object object = parser.parse(obj);
             JSONObject jsonObject = (JSONObject) object;

@@ -45,6 +45,7 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+
     @Override
     public DefaultRes signIn (MemberSignInReq memberSignInReq) {
         final String salt = memberDao.getSalt(memberSignInReq.getUid());
@@ -66,5 +67,11 @@ public class MemberServiceImpl implements MemberService {
             System.out.println("Fail Login");
             return DefaultRes.res(StatusCode.BAD_REQ, ResponseMessage.LOGIN_FAIL);
         }
+    }
+
+
+    @Override
+    public MemberDto getMember(String idx) {
+        return memberDao.getMember(idx);
     }
 }

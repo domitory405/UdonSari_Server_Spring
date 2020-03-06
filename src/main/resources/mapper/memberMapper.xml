@@ -28,4 +28,9 @@
     <select id="selectIdAndPwd" parameterType="memberSignInReq" resultMap="memberDto">
         select * from udonSari.USER WHERE uid= #{uid} AND pwd= #{hashPwd}
     </select>
+
+    <!-- idx로 Member 객체 반환하기 -->
+    <select id="getMember" parameterType="String" resultMap="memberDto">
+        select * from udonSari.USER WHERE user_idx = #{idx}
+    </select>
 </mapper>

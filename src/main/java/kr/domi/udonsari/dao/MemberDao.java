@@ -9,4 +9,5 @@ public interface MemberDao {
     boolean register(MemberSignUpReq memberSignUpReq);
     String getSalt(String uid);
     MemberDto signIn(MemberSignInReq memberSignInReq);
+    MemberDto getMember(String idx);
 }
