@@ -1,5 +1,11 @@
 package kr.domi.udonsari.service;
 
+import kr.domi.udonsari.dao.UdonDao;
+import kr.domi.udonsari.dto.MemberDto;
+import kr.domi.udonsari.model.DefaultRes;
+import kr.domi.udonsari.model.GpsReq;
+import kr.domi.udonsari.utils.ResponseMessage;
+import kr.domi.udonsari.utils.StatusCode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -8,13 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.PostConstruct;
-
 @Service
 public class UdonServiceImpl implements UdonService {
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private UdonDao udonDao;
 
     @Value("#{restConfig['openapi.key']}")
     private String apiKey;
@@ -39,12 +46,12 @@ public class UdonServiceImpl implements UdonService {
         //User 위치 정보 받아서 -> api 호출, 지역 코드
         urlInit(gps);
 
-        System.out.println(url);
+//        System.out.println(url);
 
         try {
             //시군구 법정동 코드 API 호출
             String obj = restTemplate.getForObject(url.toString(), String.class);
-            System.out.println(obj);
+//            System.out.println(obj);
 
             //API 호출 결과값 parsing (다중 json이라 부득이하게.. 이모양 이꼴)
             JSONParser parser = new JSONParser();
@@ -62,6 +69,22 @@ public class UdonServiceImpl implements UdonService {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public DefaultRes checkReg(MemberDto member, String regCode) {
+        if (regCode.equals(member.getGps())) {
+            System.out.println("[regCode : " + regCode + ", memberGps : " + member.getGps() + "] GPS 변경 없음");
+
+            return DefaultRes.res(StatusCode.OK, ResponseMessage.MATCH_GPS);
+        } else {
+            System.out.println("GPS 변경됨");
+            //DB 값 업데이트 해주기~~
+            GpsReq gpsReq = new GpsReq(member.getUserIdx(), regCode);
+            udonDao.updateGps(gpsReq);
+
+            return DefaultRes.res(StatusCode.OK, ResponseMessage.CHANGE_GPS);
         }
     }
 }
