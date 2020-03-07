@@ -10,42 +10,43 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 
-    @Service
-    public class UdonServiceImpl implements UdonService {
+@Service
+public class UdonServiceImpl implements UdonService {
 
-        @Autowired
-        RestTemplate restTemplate;
+    @Autowired
+    RestTemplate restTemplate;
 
-        @Value("#{restConfig['openapi.key']}")
-        private String apiKey;
+    @Value("#{restConfig['openapi.key']}")
+    private String apiKey;
 
-        private StringBuffer url;
-        private String code;
+    private StringBuffer url = new StringBuffer();
+    private String code;
 
-        @PostConstruct
-    public void urlInit() {
-        url = new StringBuffer("http://api.vworld.kr/req/data?service=data" +
+    public void urlInit(String gps) {
+        url.setLength(0);
+        url.append("http://api.vworld.kr/req/data?service=data" +
                 "&request=GetFeature" +
                 "&data=LT_C_ADSIGG_INFO" +
-                "&key="+ apiKey +
-                "&domain=");
+                "&key=" + apiKey +
+                "&domain=http://localhost:7979");
+        url.append("&geomFilter=" + gps);
+        url.append("&crs=EPSG:4326");
+        //        url.append("&attrFilter=sig_kor_nm:like:구");
     }
 
     @Override
     public String getRegCode(String gps) {
         //User 위치 정보 받아서 -> api 호출, 지역 코드
-        url.append("http://localhost:7979");
-        url.append("&geomFilter=" + gps);
-//        url.append("&attrFilter=sig_kor_nm:like:구");
-        url.append("&crs=EPSG:4326");
+        urlInit(gps);
 
         System.out.println(url);
 
-
         try {
+            //시군구 법정동 코드 API 호출
             String obj = restTemplate.getForObject(url.toString(), String.class);
             System.out.println(obj);
 
+            //API 호출 결과값 parsing (다중 json이라 부득이하게.. 이모양 이꼴)
             JSONParser parser = new JSONParser();
             Object object = parser.parse(obj);
             JSONObject jsonObject = (JSONObject) object;
