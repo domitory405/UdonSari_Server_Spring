@@ -7,5 +7,6 @@
         <typeAlias type="kr.domi.udonsari.model.MemberSignUpReq" alias="memberSignUpReq"></typeAlias>
         <typeAlias type="kr.domi.udonsari.model.MemberSignInReq" alias="memberSignInReq"></typeAlias>
         <typeAlias type="kr.domi.udonsari.dto.MemberDto" alias="memberDto"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.model.GpsReq" alias="gpsReq"></typeAlias>
     </typeAliases>
 </configuration>

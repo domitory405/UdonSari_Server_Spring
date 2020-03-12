@@ -21,4 +21,11 @@ public class ResponseMessage {
     public static final String MODE_UDON = "우동 모드가 선택되었습니다.";
     public static final String MODE_SARI = "사리 모드가 선택되었습니다.";
     public static final String MODE_ERROR = "잘못된 모드 번호입니다.";
+    
+    /*
+    * GPS 변경
+    * */
+    public static final String MATCH_GPS = "GPS가 유효합니다.";
+    public static final String CHANGE_GPS = "GPS 위치가 변경되었습니다.";
+
 }

@@ -27,8 +27,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.17</version>
+            <version>5.1.47</version>
         </dependency>
+
 
         <!-- Mybatis -->
         <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
@@ -163,6 +164,22 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-gson</artifactId>
             <version>0.11.0</version>
+        </dependency>
+
+        <!-- APACHE HTTP CLIENT -->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.10</version>
+        </dependency>
+
+        <!-- JSON -->
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
         </dependency>
 
     </dependencies>

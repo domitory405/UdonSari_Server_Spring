@@ -58,4 +58,11 @@ public class MemberDaoImpl implements MemberDao {
 
         return member;
     }
+
+    @Override
+    public MemberDto getMember(String idx) {
+        MemberDto member = sqlSession.selectOne("kr.domi.udonsari.MemberMapper.getMember", idx);
+
+        return member;
+    }
 }

@@ -25,5 +25,5 @@
 
     <!-- jwt properties 파일 설정 -->
     <util:properties id="jwtConfig" location="classpath:/config/jwt.properties"/>
-
+    <util:properties id="restConfig" location="classpath:/config/restful.properties"/>
 </beans>
