@@ -1,4 +1,4 @@
-package kr.domi.udonsari.vo;
+package kr.domi.udonsari.dto;
 
 public class SampleVo {
     public String name;

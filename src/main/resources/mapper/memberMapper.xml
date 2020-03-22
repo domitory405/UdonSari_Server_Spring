@@ -4,8 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.domi.udonsari.MemberMapper">
+    <resultMap id="memberDto" type="memberDto">
+        <result column="user_idx" property="userIdx"></result>
+    </resultMap>
+
     <!-- 회원 가입 -->
-    <insert id="insertMember" parameterType="Map">
+    <insert id="insertMember" parameterType="memberSignUpReq">
         insert into USER(uid, pwd, name, address, job, favorite, comment, salt, gender, image, gps)
         values( #{uid}, #{pwd}, #{name}, #{address}, #{job}, #{favorite}, #{comment}, #{salt}, #{gender}, #{image}, #{gps})
     </insert>
@@ -13,5 +17,20 @@
     <!-- 회원 가입시 id 중복 체크-->
     <select id="countMember" parameterType="String" resultType="int">
         select count(*) from udonSari.USER where uid = #{uid}
+    </select>
+
+    <!-- Salt 값 반환 -->
+    <select id="selectMemberSalt" parameterType="String" resultType="String">
+        select salt from udonSari.USER WHERE uid = #{uid}
+    </select>
+
+    <!-- Login 시 password와 hash password 비교-->
+    <select id="selectIdAndPwd" parameterType="memberSignInReq" resultMap="memberDto">
+        select * from udonSari.USER WHERE uid= #{uid} AND pwd= #{hashPwd}
+    </select>
+
+    <!-- idx로 Member 객체 반환하기 -->
+    <select id="getMember" parameterType="String" resultMap="memberDto">
+        select * from udonSari.USER WHERE user_idx = #{idx}
     </select>
 </mapper>

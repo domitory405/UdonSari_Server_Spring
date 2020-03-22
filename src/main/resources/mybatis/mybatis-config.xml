@@ -4,8 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
+<<<<<<< HEAD
         <typeAlias type="kr.domi.udonsari.vo.MemberVO" alias="memberVO"></typeAlias>
 
+=======
+        <typeAlias type="kr.domi.udonsari.model.MemberSignUpReq" alias="memberSignUpReq"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.model.MemberSignInReq" alias="memberSignInReq"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.dto.MemberDto" alias="memberDto"></typeAlias>
+        <typeAlias type="kr.domi.udonsari.model.GpsReq" alias="gpsReq"></typeAlias>
+>>>>>>> a449cffaf37134867a90a6d1b6eb177de0a68a0a
     </typeAliases>
 </configuration>
 

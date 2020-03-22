@@ -1,49 +1,53 @@
 package kr.domi.udonsari.model;
 
-package kr.domi.udonsari.utils.ResponseMessage;
-package kr.domi.udonsari.utils.StatusCode;
+import kr.domi.udonsari.utils.ResponseMessage;
+import kr.domi.udonsari.utils.StatusCode;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstrucotr;
-
-@Data
-@Builder
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
-@NoArgsConstructor
-public class DefaultRest<T> {
+@Builder
+public class DefaultRes<T> {
+    private int status;
+    private String message;
+    private int len;
+    private T data;
 
-    //Response StatusCode
-    private int statusCode;
+    public static final DefaultRes FAIL_DEFAULT_RES = new DefaultRes(StatusCode.INTERNAL_SERVER_ERROR, ResponseMessage.INTERNAL_SERVER_ERROR);
 
-    //Response Message
-    private String responseMessage;
-
-    //Response TestData
-    private T responseData;
-
-    public DefaultRes(final HttpStatus statusCode, final String responseMessage) {
-        this.statusCode = statusCode.value();
-        this.responseMessage = responseMessage;
-        this.responseData = null;
+    public DefaultRes(int status, String message) {
+        this.status = status;
+        this.message = message;
+        this.data = null;
     }
 
-    public static <T> DefaultRes<T> res(final int statusCode, final String responseMessage) {
-        return res(statusCode, responseMessage, null);
+    public DefaultRes(int status, String message, int len) {
+        this.status = status;
+        this.message = message;
+        this.len = len;
+        this.data = null;
     }
 
+    public static <T> DefaultRes<T> res(final int status, final String message) {
+        return res(status, message, null);
+    }
 
-    public static <T> DefaultRes<T> res(final int statusCode, final String responseMessage, final T t) {
+    public static <T> DefaultRes<T> res(final int status, final String message, final T t) {
         return DefaultRes.<T>builder()
-                .responseData(t)
-                .statusCode(statusCode)
-                .responseMessage(responseMessage)
+                .data(t)
+                .status(status)
+                .message(message)
                 .build();
     }
 
-    public static final DefaultRes FAIL_INTERNAL_ERROR = new DefaultRes(StatusCode.INTERNAL_SERVER_ERROR, ResponseMessage.INTERNAL_SERVER_ERROR);
-
-    public static final DefaultRes FAIL_UNAUTHORIZED_ERROR = new DefaultRes(StatusCode.UNAUTHORIZED, ResponseMessage.UNAUTHORIZED);
+    public static <T> DefaultRes<T> res(final int status, final String message, final T t, final int len) {
+        return DefaultRes.<T>builder()
+                .data(t)
+                .status(status)
+                .message(message)
+                .len(len)
+                .build();
+    }
 }
-
